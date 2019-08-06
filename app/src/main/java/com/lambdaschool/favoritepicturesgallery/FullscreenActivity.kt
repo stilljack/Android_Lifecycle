@@ -81,6 +81,8 @@ class FullscreenActivity : AppCompatActivity() {
         (mContentView as ImageView).setImageURI(Uri.parse(intent.getStringExtra("image")))
         Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
         Log.i("LifecycleFA", "onCreate")
+
+        //so why would this only pop up if i put log.i in this method instead of new override fun onCreate?
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
