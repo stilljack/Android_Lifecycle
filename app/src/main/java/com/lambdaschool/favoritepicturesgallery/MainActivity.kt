@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 import java.util.ArrayList
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         listAdapter = ImageListAdapter(imageList, this)
         layout_list.adapter = listAdapter
 
+        Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onCreate")
     }
 
     private fun refreshListView() {
@@ -62,10 +66,12 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             val fullPhotoUri = data!!.data
+            //do the following if requestcode is correct and OK
             if (fullPhotoUri != null) {
                 imageList.add(ImageData(fullPhotoUri))
                 listAdapter!!.notifyItemInserted(imageList.size - 1)
             }
+            // if the image ain't null, add it to imageList and hit listAdapater with the item (ignore null due to if statement)
         } else if (requestCode == EDIT_IMAGE_REQUEST && resultCode == RESULT_OK) {
             // Make sure the request was successful
             val returnedData = data!!.getSerializableExtra("object") as ImageData
@@ -85,5 +91,46 @@ class MainActivity : AppCompatActivity() {
 
         internal const val REQUEST_IMAGE_GET = 1
         internal const val EDIT_IMAGE_REQUEST = 2
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        setContentView(R.layout.activity_main)
+        Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onCreate")
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this, "Lifecycle - onStart", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onStart")
+    }
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this, "Lifecycle - onResume", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this, "Lifecycle - onPause", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onPause")
+    }
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this, "Lifecycle - onStop", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onStop")
+    }
+    override fun onDestroy() {
+        Toast.makeText(this, "Lifecycle - onDestroy", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        Toast.makeText(this, "Lifecycle - onRestart", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleMA", "onRestart")
+        super.onRestart()
     }
 }

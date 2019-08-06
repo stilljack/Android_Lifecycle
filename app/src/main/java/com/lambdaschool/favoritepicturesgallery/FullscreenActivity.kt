@@ -7,10 +7,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -58,6 +61,7 @@ class FullscreenActivity : AppCompatActivity() {
 
         val stringArray = arrayOfNulls<String>(5)
 
+            //what's this about? superfluous? jss
         setContentView(R.layout.activity_fullscreen)
 
         mVisible = true
@@ -75,6 +79,8 @@ class FullscreenActivity : AppCompatActivity() {
 
         val intent = intent
         (mContentView as ImageView).setImageURI(Uri.parse(intent.getStringExtra("image")))
+        Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onCreate")
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -145,4 +151,46 @@ class FullscreenActivity : AppCompatActivity() {
          */
         private val UI_ANIMATION_DELAY = 300
     }
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        setContentView(R.layout.activity_main)
+        Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onCreate")
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this, "Lifecycle - onStart", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onStart")
+    }
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this, "Lifecycle - onResume", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this, "Lifecycle - onPause", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onPause")
+    }
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this, "Lifecycle - onStop", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onStop")
+    }
+    override fun onDestroy() {
+        Toast.makeText(this, "Lifecycle - onDestroy", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        Toast.makeText(this, "Lifecycle - onRestart", Toast.LENGTH_SHORT).show()
+        Log.i("LifecycleFA", "onRestart")
+        super.onRestart()
+    }
+
+
 }
