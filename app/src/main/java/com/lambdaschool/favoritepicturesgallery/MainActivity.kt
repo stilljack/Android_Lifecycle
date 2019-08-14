@@ -93,13 +93,6 @@ class MainActivity : AppCompatActivity() {
         internal const val EDIT_IMAGE_REQUEST = 2
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.activity_main)
-        Toast.makeText(this, "Lifecycle - onCreate", Toast.LENGTH_SHORT).show()
-        Log.i("LifecycleMA", "onCreate")
-
-    }
 
     override fun onStart() {
         super.onStart()
